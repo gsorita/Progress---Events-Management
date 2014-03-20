@@ -1,0 +1,21 @@
+<div class="page_title" id='session_activity_title' style="display:none;">{!session_activity_title#html}</div>
+<script>
+$(document).ready(function(e) {
+	document.title = "{!evt_name}";
+	$('.header').first().after($("#evt_details").show());
+	"{!header_logo#url}".length > 0 ? $('#logo_img').attr('src',"{!header_logo#url}") : $('#logo_img').remove();
+});
+</script>
+<img src='{!sub_menu_background#url}' class='floating_bg' />
+<style>
+	.rbwhite  { background: none; }
+	.objectListHeader { display:none; }
+	.sections_inner .sections_inner { padding:0 5% !important; }
+</style>
+<!--<div class="countdown">
+<a href='{!#PORTAL.985289.1079007#url}&id={!evt_id}'>
+   	<img src="{!#HOSTED_FILE.1661804}" />
+  	<div align="center" class="countdownDays" id='days'>{!evt_countdown}</div>
+</a>
+</div>-->
+{!evt_links_and_submenus}
