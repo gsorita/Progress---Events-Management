@@ -3,25 +3,15 @@
 $('[name=Codes]').hide();
 
 $(document).ready(function() {
-	//callFunctionFromParent();
-	//alert('load');
 	$('[name=please_specify_job_description]').addClass('requiredInput');
 	$('input:submit').val('Next');
 	$('#email').on('keypress', function() { email(this.value) });
 	$('#email').on('keyup', function() { email(this.value) });
 	$('#email').on('keydown', function() { email(this.value) });
-	/*$("input[name=password_lead]").blur(function(){
-		$("#hidden_password").val($("input[name=password_lead]").val());
-	});
-	$("input[name=password_lead_dup]").blur(function(){
-		$("#hidden_password").val($("input[name=password_lead_dup]").val());
-	});*/
-
-	//$('#rbi_F_job_description').append('<br><textarea rows="4" cols="40" name="please_specify_job_description_dummy" class="mceNoEditor requiredInput" id="please_specify_job_description_dummy" style="display:none;" tabindex="18"></textarea>')
 	$("#job_description").change(jobDesc);
 	setTimeout(function(){
-		$('#rbi_F_please_specify_job_description label').text('* If Other, please specify Job Description');}, 500);
-	
+		$('#rbi_F_please_specify_job_description label').text('* If Other, please specify Job Description');
+	}, 500);
 	var jd = rbf_getPicklistCode('job_description');
 	if (jd == 'OTH'){
 		$('#rbi_F_please_specify_job_description > label').text('* If Other, please specify Job Description');
@@ -33,8 +23,9 @@ $(document).ready(function() {
 		$('#rbi_F_please_specify_job_description > label').text('* If Other, please specify Job Description');
 		'please_specify_job_description'.c_showHide(false);
 	}
-
-	//$('#rbi_F_streetAddr1, #rbi_F_job_description, #rbi_F_please_specify_job_description').attr('colspan','2');
+	window.onbeforeunload = function(){
+		return "You're now leaving the page without finishing your registration.";      
+	}
 });
 function email(value) {
 	$("#hidden_password").val(value);

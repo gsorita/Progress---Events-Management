@@ -1,21 +1,16 @@
 <script>
 var f_int;
 function resizeIframe(iframe) { 
-    var iHeight = getFrameSize(iframe);
-    
-    window.clearInterval(f_int);
-    f_int = window.setInterval(function() { 
-		//$(iframe).css('height', $(iframe).contents.find('html').first().height());
-		$('#'+iframe).height( iHeight );
-		//$(iframe).contents.find('html').first().height();
-		
-    },150);
+    f_int = setInterval(function() { 
+		$('#'+iframe).height( getFrameSize(iframe) );		
+    },1000);
 }
 
 function getFrameSize(iframe) {
+	console.log('test');
 	if ($.browser.msie) return document.getElementById('signup').contentWindow.document.body.offsetHeight;
-	//else if ($.browser.mozilla) return 1000;
-	else return $('#'+iframe).contents().find('html').first().height() ;
+	else if ($.browser.mozilla) return $('#'+iframe).contents().find('html').eq(0).height();
+	else return $('#'+iframe).contents().find('html').first().height();
 }
 </script>
 <span id='disable_odd_even'></span>

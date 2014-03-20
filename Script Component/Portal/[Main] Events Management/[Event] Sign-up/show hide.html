@@ -13,20 +13,25 @@ border-radius: 5px;}
 <script>
 var ex = true;
 var signup = rbf_getSectionIdByTitle('signup'),
-    btn_area = rbf_getSectionIdByTitle('Show_hide'),
-    cont = rbf_getSectionIdByTitle('Content'),
-    space = rbf_getSectionIdByTitle('spacer');
+	btn_area = rbf_getSectionIdByTitle('Show_hide'),
+	cont = rbf_getSectionIdByTitle('Content'),
+	space = rbf_getSectionIdByTitle('spacer'),
+	onBeforeUnloadFired = ($.browser.msie) ? false : true;
 
 function s_h() {
+	rbf_showOrHideSection(signup, true);
+	rbf_showOrHideSection(btn_area, false);
+	rbf_showOrHideSection(cont, false);
+	rbf_showOrHideSection(space, false);
 	
-    rbf_showOrHideSection(signup, true);
-    rbf_showOrHideSection(btn_area, false);
-    rbf_showOrHideSection(cont, false);
-    rbf_showOrHideSection(space, false);
-    //resizeIframe('signup');	
-    //orderRegType();
-    $('#signup').contents().find('#rbi_F_please_specify_job_description > label').text('* If Others, please specify Job Description');
-    window.onbeforeunload = function(){
-    return "You're now leaving the page without finishing your registration.";      }
+	$('#signup').contents().find('#rbi_F_please_specify_job_description > label').text('* If Others, please specify Job Description');
+	
+	window.onbeforeunload = function(){
+		if (!onBeforeUnloadFired){
+			onBeforeUnloadFired = true;
+		} else {
+			return "You're now leaving the page without finishing your registration.";      		
+		}
+	}
 }
 </script>

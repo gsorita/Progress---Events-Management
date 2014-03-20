@@ -3,37 +3,36 @@
 <script>
 var iHeight;
 $(document).ready(function(e) { 
-    $('#signupbtn').addClass('menu_btn_up');
-    document.title = "{!name#text}";
-    $('.header').first().after($("#evt_details").show());
-    "{!header_logo#url}".length > 0 ? $('#logo_img').attr('src',"{!header_logo#url}") : $('#logo_img').remove();
+	document.title = "{!name#text}";
+	
+	$('#signupbtn').addClass('menu_btn_up');
+	$('.header').first().after($("#evt_details").show());
+	
+	"{!header_logo#url}".length > 0 ? $('#logo_img').attr('src',"{!header_logo#url}") : $('#logo_img').remove();
+	
 	rbf_showOrHideSection(signup, false);
-	//$('#signup').contents().find('#rbi_F_please_specify_job_description > label').text('* If Others, please specify Job Description');
 	rbf_selectValue("SELECT id FROM sub_menu WHERE R1660918={!id} AND UPPER(name)=UPPER('FAQs')", function(id){
 		$('.faqs').attr('href','{!#PORTAL.985289.1665141#url}&id='+id);
 	});
 });
 
 function orderRegType(){
-
-    //alert('Edit: orderRegType()');
-    $('#signup').contents().find('#R1061205 option').remove();
-    $('#signup').contents().find('#R1061205').append('<option class="no-op" value="">-- Please select --</option>');
-
-    rbf_selectQuery("SELECT id, name, type_order FROM participant_type WHERE R1062459="+parseInt('{!id}')+" ORDER BY type_order", 1000, function(values){
-
-        for(var i = 0; i < values.length; i++){
-
-            var id = values[i][0];
-            var name = values[i][1];
-            //alert(name);
-            $('#signup').contents().find('#R1061205').append('<option value="'+id+'">'+name+'</option>');
-        }
-    });
-
+	$('#signup').contents().find('#R1061205 option').remove();
+	$('#signup').contents().find('#R1061205').append('<option class="no-op" value="">-- Please select --</option>');
+	
+	rbf_selectQuery("SELECT id, name, type_order FROM participant_type WHERE R1062459="+parseInt('{!id}')+" ORDER BY type_order", 1000, function(values){
+	
+		for(var i = 0; i < values.length; i++){
+			var id = values[i][0];
+			var name = values[i][1];
+			$('#signup').contents().find('#R1061205').append('<option value="'+id+'">'+name+'</option>');
+		}
+	});
 }
 </script>
+
 <img src='{!sign_up_page_background#url}' class='floating_bg' />
+
 <style>
     .rbwhite  { background: none; }
     .objectListHeader { display:none; }
