@@ -1,0 +1,58 @@
+<script>
+var f_int;
+function resizeIframe(iframe) { 
+    var iHeight = getFrameSize(iframe);
+    
+    window.clearInterval(f_int);
+    f_int = window.setInterval(function() { 
+		//$(iframe).css('height', $(iframe).contents.find('html').first().height());
+		$('#'+iframe).height( iHeight );
+		//$(iframe).contents.find('html').first().height();
+		
+    },150);
+}
+
+function getFrameSize(iframe) {
+	if ($.browser.msie) return document.getElementById('signup').contentWindow.document.body.offsetHeight;
+	//else if ($.browser.mozilla) return 1000;
+	else return $('#'+iframe).contents().find('html').first().height() ;
+}
+</script>
+<span id='disable_odd_even'></span>
+<div class="sections" id="about" align='center'>
+    <iframe onload="resizeIframe('signup')" src="{!#PORTAL.1049083.1039100#url}" scrolling="no" frameborder="0" id="signup" width="65%" allowTransparency="true"></iframe>
+</div>
+<style>
+#about { padding:3% 0; }
+#signup { border-radius:10px; }
+#view {
+    float:right;
+    margin-right:60px;
+    border-radius:10px;
+}
+#left { float:left; }
+.subheader,#evt_details { display:none !important; }
+h1 { float:center; }
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+    display: inline-block;
+    height: inherit !important;
+    margin-bottom: 20px;
+    font-size: 14px;
+    line-height: 20px;
+    color: #555555;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+.listview {
+    width: 70%;
+    margin: 2% 15% 0;
+    padding: 0 !important;
+    overflow: hidden;
+}
+.inline-block { display:none; }
+tr.listItem td.listItemValue, tr.listItem td.listItemRight { padding: 10px 15px; }
+.objectListHeader { display:table-row; font-size:120%; }
+tr.objectListHeader th { padding: 10px 15px; }
+</style>

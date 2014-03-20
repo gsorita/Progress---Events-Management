@@ -1,0 +1,32 @@
+<div align='center' style='padding:1%;'>
+<a href='javascript:void(0);' onclick='s_h();' style='padding:1.5% 0.4% 1.7% 0.4%;' class='reg'>
+<img src='{!#HOSTED_FILE.1703269}' />
+<a/>
+<div class='faqs_holder'><a href='#' class='faqs'>Frequently Asked Questions</a></div>
+</div>
+<style> .reg:hover {
+background: url('{!#HOSTED_FILE.1049072}');
+border-radius: 5px;}
+.faqs {color: #fff;text-decoration: underline;margin-top:50px;}
+.faqs_holder{margin-top:50px;}
+</style>
+<script>
+var ex = true;
+var signup = rbf_getSectionIdByTitle('signup'),
+    btn_area = rbf_getSectionIdByTitle('Show_hide'),
+    cont = rbf_getSectionIdByTitle('Content'),
+    space = rbf_getSectionIdByTitle('spacer');
+
+function s_h() {
+	
+    rbf_showOrHideSection(signup, true);
+    rbf_showOrHideSection(btn_area, false);
+    rbf_showOrHideSection(cont, false);
+    rbf_showOrHideSection(space, false);
+    //resizeIframe('signup');	
+    //orderRegType();
+    $('#signup').contents().find('#rbi_F_please_specify_job_description > label').text('* If Others, please specify Job Description');
+    window.onbeforeunload = function(){
+    return "You're now leaving the page without finishing your registration.";      }
+}
+</script>
