@@ -1,0 +1,129 @@
+<div id='wrk_content'>{!technical_workshop_content#html}</div>
+<div id='workshop-wrapper'>
+	<div id='mainSpacer' style="width: 35px !important;"></div>
+	<div id='days-workshop'></div>
+</div>
+<style>
+	.am,.pm{
+		padding-left:65px !important;
+		/*background: #D6D6D6;
+		margin-left: 30px;*/
+	}
+	.pm{
+		margin-top: -5px;
+		margin-bottom: -5px;
+
+	}
+	.pm .radio{
+		padding-bottom:1px;
+	}
+	.radio{
+		padding-left:30px !important;
+		background: rgba(255,255,255,.5);
+		margin-top: -5px !important;
+	}
+	.erro{
+		color:red;
+	}
+	input[type='radio'] {
+		margin: 8px;
+	}
+	.dateHeader{
+		background: #F6F6A1;
+		padding: 5px 10px;
+		margin-bottom: 0px !important;
+		color: #777777;
+	}
+	#days-workshop{
+		margin-right: 40px;
+		margin-left: 40px;
+		/*background: #E8FCDC;*/
+	}
+	.layer2 {
+		background: #D6D6D6;
+		padding: 5px 10px;
+		margin-left: -30px;
+	}
+	.date_workshop {
+		border-bottom: #7E7E7E 2px solid;
+		margin-top: -5px !important;
+	}
+	input[type="button"]{
+		font-size: 12px;
+		background: rgb(175, 175, 175);
+		color: #000;
+		text-shadow: none;
+		border: none;
+	}
+	.btnDiv{
+		float: right;
+		margin-top: -32px;
+	}
+	.title{
+		margin-top: 8px;
+	}
+	label{
+		font-weight: 100 !important;
+	}
+	.layer2spacer{
+		background: transparent;
+		float: left;
+		width: 35px !important;
+		position: absolute;
+		z-index: -1;
+	}
+	#rbi_F_looped_workshops{
+		position: relative !important;
+		z-index: -1 !important;
+	}
+	.layer3spacer{
+		height: 30px;
+		margin-bottom: 5px !important;
+		background: #D6D6D6;
+		width: 30px !important;
+		position: absolute;
+		margin-left: -30px;
+	}
+	#mainSpacer{
+		background: #F6F6A1;
+		/*height: 192px;*/
+		position: relative;
+		float: left;
+		left: 40px;
+		z-index: -1;
+	}
+</style>
+<script>
+$(document).ready(function() {
+	//{!#LOOP_BEGIN.R1473863#1765183}
+	var day = "{!R1473863.start_date}".replace(/\//gi,'-');
+	if ( $("#"+day ).length == 0)
+		$('#days-workshop').append("<div id='"+day+"' class='date_workshop'><div class='dateHeader'><div class='title'><b>{!R1473863.start_date#js}</b></div><div class='btnDiv'><input type='button' id='"+day+"' value='Clear Selection' class='btn btn-xs' onclick='clearSel(this.id);'></div></div><div class='layer2main'><div class='layer2spacer' style='width: 35px !important;'></div><div class='ampm'><div class='am'><div class='layer2'><b>Morning Sessions - 9:00 a.m. to 12:00 p.m.</b></div></div><div class='pm' style='margin-bottom: -5px;'><div class='layer2'><b>Afternoon Sessions - 1:00 p.m. to 4:00 p.m.</b></div></div></div></div>");
+		
+	if("{!R1473863.start_time}".indexOf("AM") >= 0){
+		$("<div class='layer3main'><div class='layer3spacer' style='width: 30px !important;'></div><div class='radContent'><div class='radio' name='"+day+"'><input type='radio' name='{!R1473863.start_date}_am' value='{!R1473863.id}' id='{!R1473863.id}' onchange='setWorkshop();' /><label for='{!R1473863.id}' style='padding: 5px;'>{!R1473863.name#text}</label><label id ='{!R1473863.id}_label' class='erro' style='display:none;'>The number of participants reached 30. You will be waitlisted in this workshop.</label></div></div></div>" ).appendTo( $("#"+day).find('.am').first() );
+		if(parseInt("{!R1473863.participant_count}") >= parseInt("{!R1473863.__of_seats_available}")){
+			$("#{!R1473863.id}_label").css("display","block");
+		}
+	}
+	else if("{!R1473863.start_time}".indexOf("PM") >= 0){
+		$("<div class='layer3main'><div class='layer3spacer' style='width: 30px !important;'></div><div class='radContent'><div class='radio' name='"+day+"'><input type='radio' name='{!R1473863.start_date}_pm' value='{!R1473863.id}' id='{!R1473863.id}' onchange='setWorkshop();'/><label for='{!R1473863.id}'>{!R1473863.name#text}</label><label id ='{!R1473863.id}_label' class='erro' style='display:none;'>The number of participants reached 30. You will be waitlisted in this workshop.</label></div></div></div>").appendTo( $("#"+day).find('.pm').first() );
+		if(parseInt("{!R1473863.participant_count}") >= parseInt("{!R1473863.__of_seats_available}")){
+			$("#{!R1473863.id}_label").css("display","block");
+		}
+	}
+	//{!#LOOP_END.R1473863}
+	var getHeight = $('#days-workshop').height();
+	$('#mainSpacer').css('height',getHeight+'px');
+	
+	//Load Selected workshops
+	var workshops = String(rbf_getFieldValue('R1473930')); workshops = workshops.split(',');
+	$(workshops).each(function(index, element) { $('#'+workshops[index]).prop('checked',true); });
+});
+function clearSel(id){
+	$("div[name='"+id+"'] input").prop('checked', false); 
+}
+function setWorkshop() {
+	rbf_setFieldValue('R1473930', String( $(":radio:checked").map(function() { return $(this).val(); }).get().join(',') ) );
+}
+</script>
