@@ -1,0 +1,20 @@
+<!--f--></div>
+<script>
+$(document).ready(function() {
+	$('[id*="rbi_L"]').each(function(){
+		var html_ = String( $(this).html() ).indexOf('label') == -1 ? "<label>" + $(this).html() + "</label>" : $(this).html();
+		$(this).next().prepend( html_ );
+		$(this).html('');
+	});
+	var reqIndex = ($.browser.msie) ? 1 : 0;
+	$('.requiredInput').each(function(index, element) {
+		$(this).parent().addClass('requiredField');
+		$(this).parent().find('label').eq(reqIndex).prepend('* ');
+	});
+	$("#rbi_F_password_lead label").remove();
+	$("#rbi_F_password_lead input").first().before( $("<label>Password</label>") );
+	$("#rbi_F_password_lead input").last().before( $("<label>Confirm Password</label>") );
+});
+</script>
+</body>
+</html>
