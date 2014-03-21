@@ -1,0 +1,105 @@
+<style>
+#please_spec { display:none; }
+tr.objectListHeader, .roundedSectionBorder .bold, .rbs_errorDataColWide { display:none; }
+.inline-block .small {
+	font-size: 18px;
+	margin-bottom: 20px;
+	color: #00649C !important;
+	font-weight: bold;
+}
+.inline-block.left {
+	display:block !important; width:100%; margin-bottom:0 !important;
+}
+.inline-block .small { visibility:hidden; }
+.wide.left.inline-block {
+	padding-bottom:20px;
+	display:block !important;
+	margin-bottom: -6px !important;
+	text-align:right;
+	width:auto; margin-right:3%;
+	border: 0 !important;
+}
+.c_listView { margin-top:-63px; }
+tr.listItem td {
+	padding:1% !important;
+	vertical-align: middle !important;
+}
+tr.listItem { border: 1px dotted #DDD; }
+.rbs_whiteBlankTable { margin-top: 41px; }
+
+.paymentBtn{
+background: #ffb76b; /* Old browsers */
+background: -moz-linear-gradient(top,  #ffb76b 0%, #ffa73d 27%, #ff7c00 59%, #ff7f04 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffb76b), color-stop(27%,#ffa73d), color-stop(59%,#ff7c00), color-stop(100%,#ff7f04)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #ffb76b 0%,#ffa73d 27%,#ff7c00 59%,#ff7f04 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #ffb76b 0%,#ffa73d 27%,#ff7c00 59%,#ff7f04 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #ffb76b 0%,#ffa73d 27%,#ff7c00 59%,#ff7f04 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #ffb76b 0%,#ffa73d 27%,#ff7c00 59%,#ff7f04 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb76b', endColorstr='#ff7f04',GradientType=0 ); /* IE6-9 */
+text-shadow:none;
+color: #000;
+
+}
+</style>
+<script>
+
+function changeDateFormat(d){
+    var year = d.getFullYear();
+    var month = d.getMonth()+1;
+    var day = d.getDate();
+
+    //if(String(month).length == 1) month = "0" +month;
+
+    if(month == 1){
+        month = "January";
+    }else if(month == 2){
+        month = "February";
+    }else if(month == 3){
+        month = "March";
+    }else if(month == 4){
+        month = "April";
+    }else if(month == 5){
+        month = "May";
+    }else if(month == 6){
+        month = "June";
+    }else if(month == 7){
+        month = "July";
+    }else if(month == 8){
+        month = "August";
+    }else if(month == 9){
+        month = "September";
+    }else if(month == 10){
+        month = "October";
+    }else if(month == 11){
+        month = "November";
+    }else if(month == 12){
+        month = "December";
+    }
+
+    if(String(day).length == 1) day = "0" +day;
+
+    fdate = month + " " + day + ", " + year;
+    return fdate;
+}
+
+$(document).ready(function(){
+	$('[id*=ld_]').addClass('c_listView').css('padding-top','0');
+	if ('{!job_description#code}' == 'OTH') {
+		var label = $('#rbi_F_job_description').find('label').clone();
+		$('#rbi_F_job_description').html( $('#please_spec').html() ).prepend(label);
+	}
+	//$('#rbi_F_streetAddr1, #rbi_F_job_description').attr('colspan','2');
+
+	var groupRowLen = $('tr.groupRow td').length;
+	//console.log("groupRowLen: " + groupRowLen);
+
+	for(var i = 0; i < groupRowLen; i++){
+		var groupDate = changeDateFormat(new Date($('tr.groupRow td').eq(i).text()));
+		$('tr.groupRow td').eq(i).text(groupDate);
+		//console.log(i + " " + groupDate);
+	}
+
+
+});
+</script>
+<span id='please_spec'>{!please_specify_job_description#html}</div>

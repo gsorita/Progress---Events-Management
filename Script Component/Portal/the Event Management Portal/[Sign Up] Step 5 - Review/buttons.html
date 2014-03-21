@@ -1,0 +1,24 @@
+<script>
+$('html').css('visibility','hidden');
+if (parseInt('{!Plead1#id}') > 0) window.location.replace("{!#PORTAL.1049083.1416213#url}&id={!Plead1#id}");
+$('html').css('visibility','visible');
+</script>
+<style>
+.rbs_smallSpacer { display:none; }
+.bLinks {
+	float:right; font-size: 80%;
+	padding: 5px 10px;
+	margin-right: 0.5%;
+	margin-top: -0.5%;
+}
+</style>
+<div class="wide lightbottom bold" style='border-radius:10px; margin-bottom:-10px; border-bottom:hidden;'>
+	<div class="bold gray">
+		Review
+		<button class='paymentBtn btn bLinks' onclick='window.location.href="{!#PORTAL.1049083.1416489#url}&id={!id}";'>Proceed to Payment</button>
+		<button class='btn bLinks' onclick='window.location.href="{!#PORTAL.1049083.1779545#url}&creator={!id}";'>Add Person</button>
+		<button class='btn bLinks' style='display:none;'>Cancel</button>
+		<button class='btn bLinks' onclick=' window.location.href="{!#PORTAL.1049083.1416632#url}&id={!id}";'>Edit</button>
+	</div>
+</div>
+<br/>
