@@ -1,0 +1,38 @@
+{!links_and_submenus}
+<div class="countdown" style="display:none;">
+<a href='{!#PORTAL.985289.1079007#url}&id={!id}'>
+   	<img src="{!#HOSTED_FILE.1661804}" />
+  	<div align="center" class="countdownDays" id='days'>{!countdown#value}</div>
+</a>
+</div>
+<div class="page_title" id='session_activity_title' style="display:none;">{!session_activity_title#html}
+
+{!view_sessions_activities#value}
+</div>
+<script>
+if(parseInt("{!#CURR_VISIT.id}") > 0){
+	window.location.href = "{!#PORTAL.985289.1078749#url}&id={!id}";
+}
+$(document).ready(function(e) {
+	$('#agendabtn').addClass('menu_btn_up');
+	document.title = "{!name#text}";
+	$('.header').first().after($("#evt_details").show());
+	"{!header_logo#url}".length > 0 ? $('#logo_img').attr('src',"{!header_logo#url}") : $('#logo_img').remove();
+	if ($('[name*="Sessions/Activities"]').length > 0) {
+		$('[name*="Sessions/Activities"]').addClass('sections')
+			.prepend( $('#session_activity_title') )
+			.attr('id','sessions_activities')
+			.before( $("<span id='anchor_sessions_activities'></span>") )
+			.wrapInner('<div class="sections_inner" />');
+		$('#session_activity_title').show();
+	}
+
+	//$('#ld_1703569').hide();
+});
+</script>
+<img src='{!agenda_background_image#url}' class='floating_bg' />
+<style>
+	.rbwhite  { background: none; }
+	.objectListHeader { display:none; }
+	.sections_inner { padding: 0 5% !important; }
+</style>

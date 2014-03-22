@@ -7,7 +7,7 @@
 <div style="color: #fff; font-size: 20px;">Progress Exchange 2014 is where application development comes to life</div>
 <div style="padding: 10px;"><img style="width: 60%;" src="https://www.rbl1.ph/storage/servlet/Image?c=598231&amp;fileName=tmp_6392652122027153556.jpg&amp;contentType=image%2Fjpeg" alt="" /></div>
 </div>
-<div><a href="#second"><img src="https://www.rbl1.ph/storage/servlet/Image?c=598231&amp;fileName=tmp_3088663183278720189.png&amp;contentType=image%2Fpng" alt="" height="80px" /></a></div>
+<div class="forScroll"><a href="#second"><img src="https://www.rbl1.ph/storage/servlet/Image?c=598231&amp;fileName=tmp_3088663183278720189.png&amp;contentType=image%2Fpng" alt="" height="80px" /></a></div>
 </div>
 <!-- end of 1st par -->
 <div id="second" class="par" style="background: url('https://www.rbl1.ph/storage/servlet/Image?c=598231&amp;fileName=tmp_8501594169262089076.jpg&amp;contentType=image%2Fjpeg') center no-repeat; background-size: cover; width: 100%; height: 800px; background-attachment: fixed;" align="right">
@@ -19,7 +19,7 @@
 </div>
 </div>
 <div style="margin-right: 15%;">&nbsp;</div>
-<div style="margin-right: 42.5%; margin-top: 60px;"><a href="#third"><img src="https://www.rbl1.ph/storage/servlet/Image?c=598231&amp;fileName=tmp_3088663183278720189.png&amp;contentType=image%2Fpng" alt="" width="200px" /></a></div>
+<div class="forScroll"><a href="#third"><img src="https://www.rbl1.ph/storage/servlet/Image?c=598231&amp;fileName=tmp_3088663183278720189.png&amp;contentType=image%2Fpng" alt="" width="200px" /></a></div>
 </div>
 </div>
 <!-- end of 2nd par -->
@@ -33,13 +33,13 @@
 <div style="padding: 10px 0px;">This is your chance to interactively learn about the<br />latest Progress technologies -- and a vision that you<br />can put into practice today. If you've attended Progress<br />Exchange in the past, you know there's nothing quite<br />like it.</div>
 </div>
 <div><a id="regBtn"><img class="regblack" style="width: 125px; padding: .5%;" src="https://www.rbl1.ph/storage/servlet/Image?c=598231&amp;fileName=tmp_175598292568969551.png&amp;contentType=image%2Fpng" alt="" /></a></div>
-<div style="margin-left: 37.5%; margin-top: 60px;"><a href="#fourth"><img style="width: 180px;" src="https://www.rbl1.ph/storage/servlet/Image?c=598231&amp;fileName=tmp_3088663183278720189.png&amp;contentType=image%2Fpng" alt="" /></a></div>
+<div class="forScroll"><a href="#fourth"><img style="width: 180px;" src="https://www.rbl1.ph/storage/servlet/Image?c=598231&amp;fileName=tmp_3088663183278720189.png&amp;contentType=image%2Fpng" alt="" /></a></div>
 </div>
 </div>
 <!-- end of 3rd par -->
 <div id="fourth" class="par" style="background: url('https://www.rbl1.ph/storage/servlet/Image?c=598231&amp;fileName=tmp_4303584482243133958.png&amp;contentType=image%2Fpng') center no-repeat; background-size: cover; width: 100%; height: 650px !important;" align="center"><!--<img style="margin-top: 50px;" src="https://www.rbl1.ph/storage/servlet/Image?c=598231&amp;fileName=tmp_9086669608496636338.png&amp;contentType=image%2Fpng" alt="" height="100" />-->
 <div>
-<div id="myCarousel" class="carousel slide par"><ol class="carousel-indicators" style="top: 100%; right: 48.5%;">
+<div id="myCarousel" class="carousel slide par"><ol class="carousel-indicators" style="right: 48.5%;">
 <li class="active" data-target="#myCarousel" data-slide-to="0"></li>
 <li data-target="#myCarousel" data-slide-to="1"></li>
 <li data-target="#myCarousel" data-slide-to="2"></li>
@@ -68,7 +68,12 @@
 $(document).ready(function(e) {
 	$('#vids iframe').css({	'zoom': '0.55'});
 	$('.par').css('height', (screen.availHeight * 0.8 ) - 60);
+	$('.par').css('position','relative');
 	$('.sponsorImg').css('height','100px');
+	$('.forScroll').attr('style','position: absolute; bottom:0; left:43%;');
+	$('.carousel-indicators').css('top', function() {
+		return ( $.browser.mozilla ) ? '95%' : '1000%';
+	});
 	var links = $('<div class="followUsLinks"/>');
 	
 	links.html('<img src="https://www.rbl1.ph/storage/servlet/Image?c=598231&fileName=tmp_327964787768437272.png&contentType=image%2Fpng" height="40px"><img src="https://www.rbl1.ph/storage/servlet/Image?c=598231&fileName=tmp_1887080748129996731.png&contentType=image%2Fpng" height="60px"><span style="color:#fff;font-weight: bold;margin-left: -10px;font-size: 27px;">#PRGS14</span><div><a class="scroll" href="#second"><img src="https://www.rbl1.ph/storage/servlet/Image?c=598231&fileName=tmp_3088663183278720189.png&contentType=image%2Fpng" height="75px"></a></div>')

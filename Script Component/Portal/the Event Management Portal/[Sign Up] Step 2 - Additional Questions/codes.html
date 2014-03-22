@@ -1,0 +1,128 @@
+<style>
+	td.actionCol, a.btn-primary, tr.objectListHeader, .roundedSectionBorder .bold, .rbs_errorDataColWide { display:none; }
+	.roundedSectionBorder, td.listItemValue_ { background:none !important; border:0 !important; margin-top:-18px; }
+	input[type="radio"], input[type="checkbox"] { width:auto !important; }
+	.requiredInput { padding-left:10px; }
+	.wide.lightbottom.bold { border-right:0; }
+	tr.rbs_whiteListItem td.listItemValue { padding: 1%; vertical-align: bottom !important; }
+	textarea { resize:none; min-height:35px; }
+	.error_message { color:#990000; padding-left: 10px; padding-bottom: 5px; font-size:90%; }
+</style>
+<script>
+$(document).ready(function(){
+	$('input:submit').val('Next');
+	$('textarea[name*=answer_]').change(); //Fire grid onchange onload of page
+	$('[id*=rbi_gridTable_]').each(function(index, element) {
+		//Error Validation handling
+		var gridNo = String( $(this).attr('id') ).replace('rbi_gridTable_',''),
+			errors = String( $('#rbi_gridTable_' + gridNo ).next().find('.rbs_errorDataColWide').first().find('b').first().html() );
+		if (errors.length > 0) {
+			errors = String( errors.replace('Error: ','') ).split('<br>');
+			$(errors).each(function(index, element) {
+				var err_str = String(errors[index]).replace('Row ',''),
+					err_rIndex = err_str.split(' ')[0], err_msg = err_str.replace(err_rIndex + ' ','');
+				$('#rbi_grid_'+ gridNo + '_'+ (err_rIndex-1) + '_answer').removeClass('rbs_leftDataCol').addClass('rbs_errorDataCol').find('.question').first().after( $('<div class="error_message" />').html(err_msg) );
+			});
+			//$('#rbi_gridTable_' + gridNo ).next().find('.rbs_errorDataColWide').first().find('b').first().html('');
+		}
+	});	
+});
+function resizeArea(tArea) {
+	$(tArea).height(1); $(tArea).height( $(tArea).prop('scrollHeight') );
+}
+function q_create(gridNo, rowIndex) {
+	var answerArea = $('textarea[name=answer_'+ gridNo + '_'+ rowIndex+']'),
+		qElem = $('#rbi_grid_'+ gridNo + '_'+ rowIndex + '_question_display'),
+		qLabel = qElem.find('.question'),
+		qType = qElem.find('.qType').first().html(),
+		choices = qElem.find('.choices').first().html(),
+		required = (qElem.find('.required').first().html() == 'true'),
+		ans_elem = $('#rbi_grid_'+ gridNo + '_'+ rowIndex + '_answer'),
+		ans_area = ans_elem.find('textarea').first(),
+		answer = rbf_getGridValue2(gridNo,'answer',rowIndex);
+	qElem.hide();	
+	console.log(choices);
+	
+	if ( !$(ans_area).is(':hidden') ) {
+		var question = getQuestion(qType, gridNo, rowIndex, 'answer', choices, answer),
+			curr_num = (rowIndex+1);
+		ans_area.hide().after( question );
+		if (required) question.addClass('requiredInput');
+		if (qType == 'TEXT') question.keypress();
+		
+		ans_elem.addClass('rbs_leftDataCol')
+			.attr('style', 'width : '+ Math.ceil(100 / parseInt('{!R1384967.columns}')) + "% !important;" )
+			.prepend( qLabel.prepend(curr_num + ". ") );
+			
+		if ( parseInt('{!R1384967.columns}') > 1 ) {
+			var maxIndex = rbf_getMaxRowIndex2(gridNo), tdCount = rowIndex;
+			if ( curr_num % parseInt('{!R1384967.columns}') == 0 ) {
+				var lastTDindex = curr_num - parseInt('{!R1384967.columns}');
+				do {
+					var curr_elem = $('#rbi_grid_'+ gridNo + '_'+ (tdCount) + '_answer'),
+						last_ans_elem = $('#rbi_grid_'+ gridNo + '_'+ (lastTDindex) + '_answer');
+					last_ans_elem.after(curr_elem);
+					tdCount--;
+				} while(tdCount != lastTDindex);
+			} else if ( curr_num == maxIndex ) {
+				var lastTDindex = maxIndex;				
+				while ( lastTDindex % parseInt('{!R1384967.columns}') != 0 ) { lastTDindex = lastTDindex-1; }
+				do {
+					var curr_elem = $('#rbi_grid_'+ gridNo + '_'+ (tdCount) + '_answer'),
+						last_ans_elem = $('#rbi_grid_'+ gridNo + '_'+ (lastTDindex) + '_answer');
+					last_ans_elem.after(curr_elem);
+					tdCount--;
+				} while(tdCount != lastTDindex);
+			}
+		}
+	}
+}
+function getQuestion(qType, gridNo, rowIndex, setField, choices, answer) {
+	var question = $('<span/>');
+	if (choices) {
+		//choices = String(choices).replace(/\n/gi,'').replace(/\r/gi,'');
+		choices = String(choices).split('\n');
+		if (choices.length > 0 && choices[0] != '' && choices[0] != 'null' && choices[0] != null) {
+			if (qType == 'PCK') { //Picklist Handler
+				question = $('<select />').append("<option selected>-- Please Select --</option>");;
+				$(choices).each(function(index, element) {
+					question.append("<option>"+choices[index]+"</option>");
+				});
+				question
+					.attr('onchange',"rbf_setGridValue2("+gridNo+", '"+setField+"', "+rowIndex+", ($(this).prop('selectedIndex') > 0) ? $(this).prop('selectedIndex'): '');")
+					.prop('selectedIndex', answer);
+			}
+			if (qType == 'RAD' || qType == 'CHK') { //Radio Button and Checkboxes handler
+				var uid = choices.join('|') + "_" + Math.floor((Math.random()*100000)+1), type = (qType == 'RAD') ? 'radio':'checkbox',
+					change = (qType == 'RAD') ? "$(this).val()" : "$(this).parent().parent().parent().find(':checked').map(function() {return this.value;}).get().join(',')";
+				question = $('<div />').attr('id',uid);
+				$(choices).each(function(index, element) {
+					var checked = (qType == 'RAD') ? (answer == index && answer.length > 0) : (String(answer).indexOf(index) != -1),
+						buttons = $("<input style='margin-right:3px;' type='"+type+"' />").val(index).attr({
+							'name':uid,
+							'onchange': "rbf_setGridValue2("+gridNo+", '"+setField+"', "+rowIndex+", "+change+" );"
+						}).prop({ 'checked' : checked });
+					var label = $('<label style="display:inline-block !important; font-weight: normal !important; width: auto !important;" />').html(choices[index]).prepend(buttons),
+						holder = $('<div />').append(label);
+					question.append(holder);
+				});
+				question.attr('onchange',"");
+			}
+		}
+	} else {
+		if (qType == 'TEXT') question = $('<textarea />').attr('onkeypress','resizeArea(this);').text(answer);
+		if (qType == 'INT') question = $('<input type="text" />').attr({
+			'onkeypress':	'return c_numerical(event,false)',
+			'onkeydown'	:	'return c_numerical(event,false)',
+			'onkeyup'	:	'return c_numerical(event,false)'
+		}).val(answer);
+		if (qType == 'DEC') question = $('<input type="text" />').attr({
+			'onkeypress':	'return c_numerical(event,true)',
+			'onkeydown'	:	'return c_numerical(event,true)',
+			'onkeyup'	:	'return c_numerical(event,false)'
+		}).val(answer);
+		question.attr('onchange',"rbf_setGridValue2("+gridNo+", '"+setField+"', "+rowIndex+", $(this).val() );");
+	}
+	return question;
+}
+</script>

@@ -1,0 +1,218 @@
+<div id='mainAgendaBuilder' style='width: 94%;margin: auto;'>
+<div id='pickView' style="background: url('{!#HOSTED_FILE.1049071}');color: #fff;padding: 15px;border-top-left-radius: 15px;border-top-right-radius: 15px;">
+<div style="float: left;margin: 5px;">
+View by:
+</div>
+<select onchange="loadAgendaBuilder(this);" id='selView'>
+	<option value='trackView' selected="selected">Track</option>
+	<option value="dateView">Date</option>
+</select>
+</div>
+<div id='mainAgenda'></div>
+</div>
+<script>
+
+function changeDateFormat(d){
+    var year = d.getFullYear();
+    var month = d.getMonth()+1;
+    var day = d.getDate();
+
+    //if(String(month).length == 1) month = "0" +month;
+
+    if(month == 1){
+        month = "January";
+    }else if(month == 2){
+        month = "February";
+    }else if(month == 3){
+        month = "March";
+    }else if(month == 4){
+        month = "April";
+    }else if(month == 5){
+        month = "May";
+    }else if(month == 6){
+        month = "June";
+    }else if(month == 7){
+        month = "July";
+    }else if(month == 8){
+        month = "August";
+    }else if(month == 9){
+        month = "September";
+    }else if(month == 10){
+        month = "October";
+    }else if(month == 11){
+        month = "November";
+    }else if(month == 12){
+        month = "December";
+    }
+
+    if(String(day).length == 1) day = "0" +day;
+
+    fdate = month + " " + day + ", " + year;
+    return fdate;
+}
+
+var divVal = '';
+
+$(document).ready(loadAgendaBuilder);
+
+function loadAgendaBuilder() {
+	divVal = '';
+	var trackArr = new Array();
+	var sessArr = new Array();
+	var sessDateInSess = new Array();
+	var sessDateArr = new Array();
+	var selView = $('#selView').val();
+	var sessDate = new Array();
+	console.log('Selected View: ' + selView);
+
+	//{!#LOOP_BEGIN.R1039248#1087014}
+		trackArr.push(new Array('{!R1039248.R1541837#id}','{!R1039248.R1541837#value}','{!R1039248.track_description}'));
+		sessArr.push(new Array('{!R1039248.name#text}','{!R1039248.R1541837#id}','{!R1039248.date_}','{!R1039248.id}'));
+		sessDateArr.push(new Array('{!R1039248.date_}','{!R1039248.R1541837#id}','{!R1039248.R1541837#value}'));
+		sessDate.push(new Array('{!R1039248.date_}'));
+	//{!#LOOP_END.R1039248}
+
+	console.log('trackArr.length: ' + trackArr.length);
+	console.log('sessArr.length: ' + sessArr.length);
+	console.log('sessDateArr.length: ' + sessDateArr.length);
+	console.log('sessDate.length: ' + sessDate.length);
+	if(selView == 'trackView'){
+		removeDups(trackArr);
+		divVal += '<div class="layer1" id="forTrack">';
+		for(var track in trackArr){ console.log(trackArr[track][1]);
+			var trackId = String(trackArr[track][0]);
+				divVal += '<a id="'+trackId+'" onclick="javascript:toggleShowHide(this.id);" style="cursor:pointer;"><div style="background-color: #F6F6A1;padding: 15px 15px 5px 15px;font-weight: bold;color: #686868;"><span>'+trackArr[track][1]+'</span><div><img src="{!#HOSTED_FILE.1664479#url}" style="height: 30px;float: right; position: relative; top: -25px;"></div></div></a>';
+
+				//for description
+
+				divVal += '<div class="mainDesc" style="background: #F6F6A1;">'
+				divVal += '<div class="descSpacer" style="background: #F6F6A1;width: 23px;position: absolute;float: left;"></div>'
+				divVal += '<div class="trackDesc" style="margin-left: 20px;background: F6F6A1;padding: 5px 10px 10px 20px;font-size: 85%;">'+trackArr[track][2]+'</div>';
+				divVal += '</div>'
+
+				divVal += '<div class="layer2" id="'+trackId+'layer2" style="border-bottom: 2px solid #979797; background:#D6D6D6;">';
+			for(var day = 0; day < sessDateArr.length; day++){
+				removeDups(sessDateArr);
+				if(trackArr[track][0] == sessDateArr[day][1]){
+					var dayId = sessDateArr[day][0].toString().replace(/\//gi, '-');
+					divVal += '<div class="layer1spacerA">';//</div>'; //spacer for 1st layer
+					divVal += '<div id="'+dayId+'" style="padding: 10px; background: #D6D6D6; font-weight:bold;">'+changeDateFormat(new Date(sessDateArr[day][0]))+'</div>';
+					divVal += '</div>'; //spacer for 1st layer
+					//divVal += '<div class="sessCont layer3" style="/*padding: 3px 60px;*/ background: rgba(255, 255, 255, 0.8);">';
+					//divVal += '<ul>';
+					for(var sess = 0; sess < sessArr.length; sess++){
+						if((sessDateArr[day][1] == sessArr[sess][1]) && (sessDateArr[day][0] == sessArr[sess][2]) ) {
+							divVal += '<div class="layer1spacer2A">';//</div>'; //spacer for 1st layer
+								divVal += '<div class="layer2spacer">';//</div>'; //spacer for 2nd layer
+								//divVal += '<li style="font-weight: bold;font-size: 14px; color:#000;">
+									divVal += '<div class="sessCont layer3" style="padding: 10px; background: #FFF;">';
+										divVal += '<a href="javascript:void(0)" id="'+sessArr[sess][3]+'" name="'+sessArr[sess][0]+'" onclick="showModal(this.name,this.id);">'+sessArr[sess][0]+'<img src="{!#HOSTED_FILE.1829089}"></a>';//</li>';
+									divVal += '</div>';
+								divVal += '</div>'; //spacer for 2nd layer
+							divVal += '</div>'; //spacer for 1st layer
+						}
+					}
+					//divVal += '</ul>';
+					//divVal += '</div>';
+				}
+			}
+			divVal += '</div>';
+		}
+		divVal += '</div>';
+	} // end trackView
+	else if(selView == 'dateView'){
+		removeDups(sessDate);
+		sessDate.sort(function(a,b) {
+			return new Date(a) > new Date(b);
+		});
+		divVal += '<div class="layer1" id="forDate">';
+		for(var i in sessDate){
+			var sessDateId = sessDate[i].toString().replace(/\//gi, '-');
+			divVal += '<a id="'+sessDateId+'" onclick="javascript:toggleShowHide(this.id);" style="cursor:pointer;"><div style="background-color: #F6F6A1;padding: 15px;font-weight: bold;color: #686868;"><span>'+changeDateFormat(new Date(sessDate[i]))+'</span><div><img src="{!#HOSTED_FILE.1664479#url}" style="height: 30px; position: relative; top: -25px; float:right;"></div></div></a>';
+			divVal += '<div class="layer2" id="'+sessDateId+'layer2" style="border-bottom: 2px solid #979797; background:#D6D6D6;">';
+			for(var track = 0; track < sessDateArr.length; track++){
+				removeDups(sessDateArr);
+				if(sessDate[i] == sessDateArr[track][0]){
+					var trackId = sessDateArr[track][1];
+					divVal += '<div class="layer1spacerB"></div>'; //spacer for 1st layer
+					divVal += '<div id="'+sessDateId+'-'+trackId+'" style="padding: 10px 40px; background: #D6D6D6; font-weight:bold;">'+sessDateArr[track][2]+'</div>';
+
+					// divVal += '<div class="layer1spacer2B">';//</div>'; //spacer for 1st layer
+					// divVal += '<div class="layer2spacer">';//</div>'; //spacer for 2nd layer
+
+					// divVal += '<div class="sessCont layer3" style="padding: 10px; background: rgba(255, 255, 255, 0.8);">';
+					
+					// divVal += '<ul style="list-style: none;">';
+					for(var sess = 0 ; sess < sessArr.length; sess++){
+						if((sessArr[sess][1] == sessDateArr[track][1]) && (sessArr[sess][2] == sessDate[i])){
+							divVal += '<div class="layer1spacer2A">';//</div>'; //spacer for 1st layer
+								divVal += '<div class="layer2spacer">';//</div>'; //spacer for 2nd layer
+									divVal += '<div class="sessCont layer3" style="padding: 10px; background: #FFF;">';
+										divVal += '<a href="javascript:void(0)" id="'+sessArr[sess][3]+'" name="'+sessArr[sess][0]+'" onclick="showModal(this.name,this.id);">'+sessArr[sess][0]+'<img src="{!#HOSTED_FILE.1829089}"></a>';
+									divVal += '</div>';
+								divVal += '</div>'; //spacer for 2nd layer
+							divVal += '</div>'; //spacer for 1st layer
+						}
+					}
+
+					//divVal += '</ul>'
+					//divVal += '</div>';
+				}
+
+			} divVal += '</div>';
+
+		}
+		divVal += '</div>';
+	} // end dateView
+	$('#selView').val(selView);
+	$('#mainAgenda').html(divVal);
+
+	//setSelectedView();
+	//document.getElementById('agendaB').src = document.getElementById('agendaB').src
+
+	$('.layer1spacer').attr('style','width: 23px; height: 36px; background: #F6F6A1; float: left;');
+	$('.layer1spacerA').attr('style','padding-left: 23px; height: 36px; background: #F6F6A1;');
+	$('.layer1spacer2').attr('style','margin-right: 33px; width: 23px; height: 26px; background: #F6F6A1; margin-left: -60px; float: left; margin-top: -3px;');
+	$('.layer1spacer2A').attr('style','padding-left: 23px; background: #F6F6A1;');
+	$('.layer2spacer').attr('style','padding-left: 23px; background: #D6D6D6;');
+	$('.layer1spacerB').attr('style','padding-left: 23px; background: #F6F6A1;height: 36px;float: left;');
+	$('.layer1spacer2B').attr('style','padding-left: 23px; background: #F6F6A1;float: left;');
+	//$('.sessCont.layer3').attr('style','background: url("{!#HOSTED_FILE.1049072}")');
+
+	$('#ld_1703569').hide();
+
+
+}
+
+function removeDups(array){
+	var index = {};
+	for(var ind = array.length - 1; ind >= 0; ind--){
+		if(array[ind] in index){
+			array.splice(ind, 1);
+		}else{
+			index[array[ind]] = true;
+		}
+	}
+}
+
+function toggleShowHide(id){
+
+	if($('#'+id+'layer2').css('display') == 'block'){
+		//alert(1);
+		$('#'+id+' img').prop('src','{!#HOSTED_FILE.1664481}');
+		$('#'+id+'layer2').hide();
+
+	}else if($('#'+id+'layer2').css('display') == 'none'){
+		//alert(2);
+		$('#'+id+' img').prop('src','{!#HOSTED_FILE.1664479}');
+		$('#'+id+'layer2').show();
+	}
+
+}
+
+function showModal(name, id){
+	modalFrame("{!#PORTAL.1049083.1036644#url}&id="+id,name,530);
+}
+	
+</script>
+<!-- <a href="javascript:void(0)" onclick=''>{!name#text}</a> -->

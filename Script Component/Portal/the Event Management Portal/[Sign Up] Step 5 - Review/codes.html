@@ -48,8 +48,6 @@ function changeDateFormat(d){
     var month = d.getMonth()+1;
     var day = d.getDate();
 
-    //if(String(month).length == 1) month = "0" +month;
-
     if(month == 1){
         month = "January";
     }else if(month == 2){
@@ -82,24 +80,30 @@ function changeDateFormat(d){
     return fdate;
 }
 
+function clearLeft(sectionTitle) {
+	sectionTitle = sectionTitle.split(',');
+	for (index in sectionTitle) {
+		try {
+			$('#rbi_S_'+ rbf_getSectionIdByTitle(sectionTitle[index])).find('table').eq(0).find('table').eq(0).css('clear', 'left');	
+		} catch (err) {
+			console.log(err);	
+		}
+	}
+}
+
 $(document).ready(function(){
 	$('[id*=ld_]').addClass('c_listView').css('padding-top','0');
+	clearLeft('Special Events Registration,Survey Answers,Workshops,Child Signups');
+	$('#rbi_S_'+ rbf_getSectionIdByTitle('Special Events Registration')).find('table').eq(0).find('table').eq(0).css('clear', 'left');
 	if ('{!job_description#code}' == 'OTH') {
 		var label = $('#rbi_F_job_description').find('label').clone();
 		$('#rbi_F_job_description').html( $('#please_spec').html() ).prepend(label);
 	}
-	//$('#rbi_F_streetAddr1, #rbi_F_job_description').attr('colspan','2');
-
 	var groupRowLen = $('tr.groupRow td').length;
-	//console.log("groupRowLen: " + groupRowLen);
-
 	for(var i = 0; i < groupRowLen; i++){
 		var groupDate = changeDateFormat(new Date($('tr.groupRow td').eq(i).text()));
 		$('tr.groupRow td').eq(i).text(groupDate);
-		//console.log(i + " " + groupDate);
 	}
-
-
 });
 </script>
 <span id='please_spec'>{!please_specify_job_description#html}</div>

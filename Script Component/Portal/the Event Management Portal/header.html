@@ -166,6 +166,7 @@ $(document).ready(function(e) {
 	});
 	if ( String( $('#rb_infoMessageText').html() ).indexOf('Sign Up') != -1 ) $('.rbs_infoMessage').hide();
     if ( !$('#rb_infoMessageText').is(':hidden') ) $('body').css('padding-top', $('#rb_infoMessageText').height() / 2);
+	$('input:submit').removeAttr("disabled");
 	window.setInterval(oddEven,200);
 });
 function oddEven() {

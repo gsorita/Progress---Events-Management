@@ -15,7 +15,7 @@
 
 	}
 	.pm .radio{
-		padding-bottom:1px;
+		/*padding-bottom:1px;*/
 	}
 	.radio{
 		padding-left:30px !important;
@@ -25,7 +25,9 @@
 	.erro{
 		color:red;
 	}
-	input[type='radio'] {
+	input[type='radio'] { 
+		float: left; 
+		position: fixed; 
 		margin: 8px;
 	}
 	.dateHeader{
@@ -98,16 +100,16 @@ $(document).ready(function() {
 	//{!#LOOP_BEGIN.R1473863#1765183}
 	var day = "{!R1473863.start_date}".replace(/\//gi,'-');
 	if ( $("#"+day ).length == 0)
-		$('#days-workshop').append("<div id='"+day+"' class='date_workshop'><div class='dateHeader'><div class='title'><b>{!R1473863.start_date#js}</b></div><div class='btnDiv'><input type='button' id='"+day+"' value='Clear Selection' class='btn btn-xs' onclick='clearSel(this.id);'></div></div><div class='layer2main'><div class='layer2spacer' style='width: 35px !important;'></div><div class='ampm'><div class='am'><div class='layer2'><b>Morning Sessions - 9:00 a.m. to 12:00 p.m.</b></div></div><div class='pm' style='margin-bottom: -5px;'><div class='layer2'><b>Afternoon Sessions - 1:00 p.m. to 4:00 p.m.</b></div></div></div></div>");
+		$('#days-workshop').append("<div id='"+day+"' class='date_workshop'><div class='dateHeader'><div class='title'><b>{!R1473863.start_date#js}</b></div><div class='btnDiv'><input type='button' id='"+day+"' value='Clear Selection' class='btn btn-xs' onclick='clearSel(this.id);'></div></div><div class='layer2main'><div class='layer2spacer' style='width: 35px !important;'></div><div class='ampm'><div class='am'><div class='layer2'><b>Morning Sessions - 9:00 a.m. to 12:00 p.m.</b></div></div><div class='pm' style='margin-bottom: -5px;'><div class='layer2'><b>Afternoon Sessions - 1:00 p.m. to 4:00 p.m.</b></div></div></div></div></div>");
 		
 	if("{!R1473863.start_time}".indexOf("AM") >= 0){
-		$("<div class='layer3main'><div class='layer3spacer' style='width: 30px !important;'></div><div class='radContent'><div class='radio' name='"+day+"'><input type='radio' name='{!R1473863.start_date}_am' value='{!R1473863.id}' id='{!R1473863.id}' onchange='setWorkshop();' /><label for='{!R1473863.id}' style='padding: 5px;'>{!R1473863.name#text}</label><label id ='{!R1473863.id}_label' class='erro' style='display:none;'>The number of participants reached 30. You will be waitlisted in this workshop.</label></div></div></div>" ).appendTo( $("#"+day).find('.am').first() );
+		$("<div class='layer3main'><div class='layer3spacer' style='width: 30px !important;'></div><div class='radContent'><div class='radio' name='"+day+"'><input type='radio' name='{!R1473863.start_date}_am' value='{!R1473863.id}' id='{!R1473863.id}' onchange='setWorkshop();' /><label for='{!R1473863.id}' style='padding: 5px; margin-left: 15px;'>{!R1473863.name#text}</label><label id ='{!R1473863.id}_label' class='erro' style='display:none;'>The number of participants reached 30. You will be waitlisted in this workshop.</label></div></div></div>" ).appendTo( $("#"+day).find('.am').eq(0) );
 		if(parseInt("{!R1473863.participant_count}") >= parseInt("{!R1473863.__of_seats_available}")){
 			$("#{!R1473863.id}_label").css("display","block");
 		}
 	}
 	else if("{!R1473863.start_time}".indexOf("PM") >= 0){
-		$("<div class='layer3main'><div class='layer3spacer' style='width: 30px !important;'></div><div class='radContent'><div class='radio' name='"+day+"'><input type='radio' name='{!R1473863.start_date}_pm' value='{!R1473863.id}' id='{!R1473863.id}' onchange='setWorkshop();'/><label for='{!R1473863.id}'>{!R1473863.name#text}</label><label id ='{!R1473863.id}_label' class='erro' style='display:none;'>The number of participants reached 30. You will be waitlisted in this workshop.</label></div></div></div>").appendTo( $("#"+day).find('.pm').first() );
+		$("<div class='layer3main'><div class='layer3spacer' style='width: 30px !important;'></div><div class='radContent'><div class='radio' name='"+day+"'><input type='radio' name='{!R1473863.start_date}_pm' value='{!R1473863.id}' id='{!R1473863.id}' onchange='setWorkshop();'/><label for='{!R1473863.id}' style='padding: 5px; margin-left: 15px;'>{!R1473863.name#text}</label><label id ='{!R1473863.id}_label' class='erro' style='display:none;'>The number of participants reached 30. You will be waitlisted in this workshop.</label></div></div></div>").appendTo( $("#"+day).find('.pm').eq(0) );
 		if(parseInt("{!R1473863.participant_count}") >= parseInt("{!R1473863.__of_seats_available}")){
 			$("#{!R1473863.id}_label").css("display","block");
 		}
