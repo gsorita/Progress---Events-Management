@@ -1,0 +1,16 @@
+<span id='anchor_home'></span>
+<div class="sections" id="home">
+	<div class="sections_inner">	
+        <div align='center' id='join_holder' style='position:absolute; width:100%;'>
+            {!join_event}
+        </div>
+        <script>
+                $(document).ready(function() {
+                        $('#join_holder').css('top', screen.availHeight * 0.1 );
+                });
+        </script>
+		<div class="page_title">{!home_title#html}</div>
+		{!home_content#html}
+	</div>
+</div>
+{!footer_content}

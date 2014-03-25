@@ -1,0 +1,21 @@
+{!links_and_submenus}
+<script>
+$(document).ready(function(e) {
+	$('#homebtn').addClass('menu_btn_up');
+	document.title = "{!name#text}" + " | Home";
+	$('.header').first().after($("#evt_details").show());
+	"{!header_logo#url}".length > 0 ? $('#logo_img').attr('src',"{!header_logo#url}") : $('#logo_img').remove();
+});
+</script>
+<img src='{!home_background#url}' class='floating_bg' />
+<style>
+	#home { background: no-repeat center url('{!home_background#url}'); }
+	#about { background: no-repeat center url('{!about_us_background#url}'); }
+	#sponsors { background: no-repeat center url('{!sponsors_background_image#url}'); }
+	#sessions_activities { background: no-repeat center url('{!agenda_background_image#url}'); }
+	#calendar { background: no-repeat center url('{!calendar_background#url}'); }
+	#home, #about, #sponsors, #sessions_activities, #calendar { background-size:cover; }
+	.rbwhite  { background: none; }
+	.objectListHeader { display:none; }
+	.sections_inner .sections_inner { padding:0 5% !important; }
+</style>
