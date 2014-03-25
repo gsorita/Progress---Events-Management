@@ -3,8 +3,9 @@
 $('[name=Codes]').hide();
 
 $(document).ready(function() {
+	toRegistrationButtons();
+	$("#rbi_S_"+rbf_getSectionIdByTitle("Attendee Information")+" input, textarea, select").css({"font-weight":"bold", "letter-spacing":"0.2px", "color":"#000"});
 	$('[name=please_specify_job_description]').addClass('requiredInput');
-	$('input:submit').val('Next');
 	$('#email').on('keypress', function() { email(this.value) });
 	$('#email').on('keyup', function() { email(this.value) });
 	$('#email').on('keydown', function() { email(this.value) });
@@ -22,9 +23,6 @@ $(document).ready(function() {
 	} else {
 		$('#rbi_F_please_specify_job_description > label').text('* If Other, please specify Job Description');
 		'please_specify_job_description'.c_showHide(false);
-	}
-	window.onbeforeunload = function(){
-		return "You're now leaving the page without finishing your registration.";      
 	}
 });
 function email(value) {

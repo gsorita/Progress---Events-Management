@@ -1,11 +1,5 @@
-<script>
-$(document).ready(function(){
-	$('[name="Codes"]').hide();
-	$('#rbi_L_looped_workshops').remove();
-	$('input:submit').val('Next');
-});
-</script>
 <style>
+	body { visibility: hidden; }
 	td.actionCol, a.btn-primary, tr.objectListHeader, .roundedSectionBorder .bold, .rbs_errorDataColWide { display:none; }
 	.roundedSectionBorder, td.listItemValue_ { background:none !important; border:0 !important; }
 	input[type="radio"], input[type="checkbox"] { width:auto !important; }
@@ -15,3 +9,11 @@ $(document).ready(function(){
 	.error_message { color:#990000; padding-left: 10px; padding-bottom: 5px; font-size:90%; }
 td.rbs_errorDataCol *, td.rbs_errorDataCol3 *, td.rbs_errorDataColWide *, td.rbs_leftDataCol *, td.rbs_leftDataCol3 *, td.rbs_leftDataColWide * { width:auto !important; }
 </style>
+<script>
+$(document).ready(function(){
+	$('[name="Codes"]').hide();
+	$('#rbi_L_looped_workshops').remove();
+	toRegistrationButtons();
+	$('body').css('visibility', 'visible');
+});
+</script>

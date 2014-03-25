@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv='cache-control' content='no-cache'>
+
+<link rel="shortcut icon" href="{!#HOSTED_FILE.1048205}">
+<script src="{!#HOSTED_FILE.1048207}"></script>
+<script type='text/javascript' src="{!#HOSTED_FILE.1048206}"></script>
+<!-- jQuery and jQuery UI -->
+<script src="https://www.rbl1.ph/prod1/js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://www.rbl1.ph/prod1/js/jquery-ui-1.8.18.custom.min.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" href="https://www.rbl1.ph/prod1/css/jquery-ui-1.8.18.custom.css" type="text/css" media="screen" charset="utf-8">
+
+
+<!-- Bootstrap -->
+<script src="https://www.rbl1.ph/prod1/css/bootstrap/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" href="https://www.rbl1.ph/prod1/css/bootstrap/css/bootstrap.min.css" type="text/css" charset="utf-8">
+<link rel="stylesheet" href="{!#HOSTED_FILE.1976083}" type="text/css" charset="utf-8">
+
+<link rel="stylesheet" href="https://www.rbl1.ph/prod1/css/bootstrap/css/font-awesome.min.css" type="text/css" charset="utf-8">
+
+<!-- Select2 -->
+<script type="text/javascript" src="https://www.rbl1.ph/prod1/js/select2.min.js" charset="utf-8"></script>
+<link rel="stylesheet" href="https://www.rbl1.ph/prod1/css/select2/select2.css" charset="utf-8">
+
+<!-- TinyMCE -->
+<script type="text/javascript" src="https://www.rbl1.ph/prod1/js/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+
+<!-- Google Font API -->
+<link href='https://fonts.googleapis.com/css?family=Sintony:400,700' rel='stylesheet' type='text/css'>
+
+<title>Events Management</title>
+<link href="{!#HOSTED_FILE.1048204}" rel="stylesheet" type="text/css" />
+<style>
+	@font-face {
+		font-family: 'Geogrotesque';
+		src: url('{!#SETTINGS.font_eot_#url}') format('eot'), url('{!#SETTINGS.font_otf_#url}') format('opentype'), url('{!#SETTINGS.font_woff_#url}') format('woff');
+	}
+	html, body{
+		/* font-family: 'Sintony', sans-serif !important; */
+		font-family: Geogrotesque !important;
+        font-size: 100%;
+	}
+	#loader {
+		background:#FFF no-repeat center url('{!#HOSTED_FILE.1076912}');
+		position:fixed; height:100%; width:100%; left:0; z-index:1000000; top:0;
+	}
+	.ui-dialog .ui-dialog-content { background:#fff; padding:0; overflow:hidden; }
+	.ui-dialog .ui-dialog-title { font-weight:bold; }
+	.rbs_infoMessage, #rb_infoMessage {
+		position: fixed;
+		top: 45px;
+		/*/z-index: 2000;*/
+		width: 100%;
+		left: 0;
+		text-align: center;
+	}
+	.rbs_infoMessage { background: url('{!#HOSTED_FILE.1049072}'); }
+	#rb_infoMessageText { padding: 7px 0; }
+	#ui-dialog-title-dialog { font-size:100%; }
+	tr.objectListHeader { background: url('{!#HOSTED_FILE.1049071}') !important; color: #FFF !important }
+	tr.objectListHeader * { color:#FFF !important; }
+	.listview {
+		padding: 10px 0; padding-bottom:0px; overflow:hidden; border: 1px #FFF hidden;
+		border-radius: 5px; -moz-border-radius: 5px;
+		-webkit-border-radius: 5px;
+		background: url('{!#HOSTED_FILE.1049072}') repeat;
+	}
+	.listview .small { display:none; }
+	tr.listItem.even {
+		background:none !important;
+		background: -moz-linear-gradient(100% 25% 90deg, #fefefe, #f9f9f9);
+		background: -webkit-gradient(linear, 0% 0%, 0% 25%, from(#f9f9f9), to(#fefefe));
+		background: #fefefe !important; 
+		background-image: -webkit-gradient(linear,left top,left bottom,from(fefefe),to(f9f9f9)) !important; /*0093D9 136993*/
+		background-image: -webkit-linear-gradient(top,fefefe,f9f9f9) !important;
+		background-image: -moz-linear-gradient(top,fefefe,f9f9f9) !important;
+		background-image: -ms-linear-gradient(top,fefefe,f9f9f9) !important;
+		background-image: -o-linear-gradient(top,fefefe,f9f9f9) !important;
+		background-image: linear-gradient(top,fefefe,f9f9f9) !important;
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='fefefe', endColorstr='f9f9f9',GradientType=0 ); /* IE6-9 */
+	}
+	tr.listItem.odd {
+		background: #f1f1f1 !important; 
+		background-image: -webkit-gradient(linear,left top,left bottom,from(f1f1f1),to(f6f6f6)) !important; /*0093D9 136993*/
+		background-image: -webkit-linear-gradient(top,f1f1f1,f6f6f6) !important;
+		background-image: -moz-linear-gradient(top,f1f1f1,f6f6f6) !important;
+		background-image: -ms-linear-gradient(top,f1f1f1,f6f6f6) !important;
+		background-image: -o-linear-gradient(top,f1f1f1,f6f6f6) !important;
+		background-image: linear-gradient(top,f1f1f1,f6f6f6) !important;
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='f1f1f1', endColorstr='f6f6f6',GradientType=0 ); /* IE6-9 */
+	}
+	tr.listItem td.listItemValue, tr.listItem td.listItemRight { padding: 10px 5px; border: 0 !important; vertical-align:middle; }
+	td.listItemValue a, td.listItemValue a:link, td.listItemValue a:visited, td.listItemValue a:hover {
+		font-weight: bold !important; font-size: 100%;
+	}
+	tr.groupRow td { padding: 10px 10px; }
+	.rbs_smallSpacer { background-color: transparent; border: 0 !important; }
+	.fc-text-arrow { font-size:1.5em !important; }
+	.fc-header-title h2 { font-size: 1.5em !important; font-weight:bold !important; }
+	.fc-button { text-transform: capitalize; }
+	.fc-event-time, .fc-event-title { padding: 0 2px; }
+	strong, strong * { font-weight: bold !important; }
+	#evt_details {
+		top:68px; font-size: 12px; color:#FFF; padding-left:25px; display:none;
+		padding:3px 0 3px 25px; background: url('{!#HOSTED_FILE.1049071}');
+	}
+	.floating_bg { position:fixed; top:45px; min-height:100%; width:100%; left:0; z-index: -1; }
+	.reg:hover {
+		background: url('{!#HOSTED_FILE.1049072}');
+		border-radius: 5px;
+	}
+        .regblack:hover {
+		background: url('{!#HOSTED_FILE.1049071}');
+		border-radius: 5px;
+	}
+        .carousel-indicators .active {
+                background-color: #FF8500 !important;
+        }
+
+        .carousel-indicators li {
+                width: 15px !important;
+                height: 15px !important;
+}
+</style>
+<script>
+$(document).ready(function() {
+	$('#loader').show();
+	$('[id*=rbi_S_]').each(function(index, element) { $(this).next().hide(); });
+	$('[id*="ld_"]').addClass('listview');
+	$('.menu_btn.subMenu_items:contains("FAQs")').css('text-transform', 'none');
+	$('.page_title').each(function(index, element) {
+		if ( $(this).html() == '' ) $(this).remove();
+	});
+	oddEven();
+	grouping();
+	window.setInterval(function(){
+		oddEven();
+		//check_current_link();
+		grouping();
+	},200);
+});
+function oddEven() {
+	$('tr.listItem').each(function(index, element) {
+		if ( $('#disable_odd_even').length == 0 ) {
+			if (index % 2 == 0) $(this).addClass('even');
+			else $(this).addClass('odd');
+		}
+		$(this).css('opacity','0.7');
+		$(this).find('*').css('opacity','1');
+		/*
+		if ($(this).find('a').length > 0) {
+			var arrow = $('<img height="30" class="arrow" src="{!#HOSTED_FILE.1049080}" style="margin-right:5px;" />');
+			if ( $(this).find('.arrow').length == 0 ) $(this).find('a').first().prepend(arrow);
+		}*/
+	});
+	$('.disabled').css('opacity','1');
+}
+function grouping() {
+	if ($('tr.groupRow').length > 0) {
+		$('tr.groupRow').each(function(index) {
+			if ( String( $(this).html() ).indexOf('img') == -1) {
+				$(this).attr({ 
+					'isCollapsed':'N',
+					'id':'rbph_'+index,
+					'onclick':"col_exp("+index+");"
+				}).css('cursor','pointer');
+				$('td',this).first().attr({'valign':'middle'}).css('vertical-align','middle');
+				$('td',this).first().wrapInner("<div style='display:inline-block; text-align: left; width:49%;'/>"); //left division
+				var img = $('<img id="myImg" src="{!#HOSTED_FILE.1664479}" width="30" height="30" border="0" />').clone();
+					img.attr({'class':"rbph_img_"+index}).css('margin-right','-2%');
+					img = $("<div style='display:inline-block; text-align: right; width:50%;'/>").append(img); //right division
+				$('td',this).first().append(img);
+	
+				var nxtTr = $(this).next(),	nxtClass = $(this).next().attr('class');
+				var chkTr = $(nxtTr), chkClass = $(nxtTr).attr('class');
+				if (nxtTr) {
+					do {
+						try {
+							chkTr = $(nxtTr), chkClass = $(nxtTr).attr('class');
+							if (String(chkClass).indexOf('listItem') == -1 || String(chkTr.html() ).indexOf('summaryNumber') != -1 ||
+							String(chkTr.html() ).indexOf('SummaryNumber') != -1 ) break;										
+							var identifier = 'rbph_'+ String(index);
+							$(nxtTr).attr({ 'col_exp':identifier });
+							//chkTr.hide();
+							nxtTr = $(nxtTr).next(), nxtClass = $(nxtTr).next().attr('class');
+						} catch(e) {
+							throw e.message; break;
+						}
+					} while (String(chkClass).indexOf('listItem') != -1);
+				}
+			}
+		});
+	}
+}
+function col_exp(col_index) {
+	var elem = $('#rbph_'+col_index);
+	if ( elem.attr('isCollapsed') == 'N' ) {
+		elem.attr('isCollapsed','Y');
+		$('.rbph_img_'+col_index).attr('src',"{!#HOSTED_FILE.1664481}");
+		$('tr[col_exp="rbph_'+col_index+'"]').hide();
+	} else {
+		elem.attr('isCollapsed','N');
+		$('.rbph_img_'+col_index).attr('src',"{!#HOSTED_FILE.1664479}");
+		$('tr[col_exp="rbph_'+col_index+'"]').show();
+	}	
+}
+function check_current_link() {
+	$('.menu_btn').each(function(index, element) {
+		if ( checkvisible( '#' + $(this).attr('anchor') ) ) {
+			$('#hover_over').animate({
+				'left': $(this).position().left,
+				'width': $(this).width()
+			},53);
+			return false;		
+		}
+	});
+}
+function checkvisible(elm) {
+	if ( $(elm).position().top <= ($(window).height() * 0.35) && $(window).scrollTop() <= ($(window).height() * 0.35) ) return true;
+	else return ( $(elm).position().top > $(window).scrollTop() - ($(window).height() * 0.35) );
+}
+function modalFrame(url, title, opt_height, opt_width) {
+	var n_height = (opt_height) ? opt_height : screen.height * 0.8,
+		n_width = (opt_width) ? opt_width : '90%';
+	$("#dialogFrame").attr('src',url).height(n_height - 10).show();
+	$("#dialog").attr('title',title).dialog({
+      	height: n_height, modal: true, resizable: true, width: n_width,
+	  	'close': function(){
+			$("#dialogFrame").attr('src','').height(0).hide();
+			$("#dialog").attr('title','');
+	  	}
+    })
+	$('#ui-dialog-title-dialog').html(title);
+}
+function resizeFrame() {
+	$('#dialog').height( $('#dialogFrame').contents().find('html').height() + 20 );
+	$('#dialogFrame').height( $('#dialogFrame').contents().find('html').height() + 10 );
+}
+</script>
+</head>
+<body>
+	<div id='loader'></div>
+	<div class="main">
+		<!-- menu goes here from script [links and submenus template] -->
+		<div id="main_content"><!--h-->

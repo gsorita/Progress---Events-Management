@@ -1,0 +1,51 @@
+<style>#rbi_F_participant_picture { width:50%; } </style>
+<script>
+$('[name=Codes]').hide();
+$(document).ready(function() {
+	
+	$('[name=please_specify_job_description]').addClass('requiredInput');
+	toRegistrationButtons();
+	$('#email').blur(function() {
+		$("#hidden_password").val( $("#email").val() );
+		$("input[name=password_lead]").val( $("#email").val() );
+		$("input[name=password_lead_dup]").val( $("#email").val() );
+	});
+	$("#job_description").change(jobDesc).change();
+
+	$('#rbi_F_job_description').attr('style','border-bottom: none !important;');
+	$('#rbi_F_please_specify_job_description').attr('style','border-top: none !important;');
+
+	setTimeout(function(){
+		$('#rbi_F_please_specify_job_description label').text('* If Other, please specify Job Description');}, 500);
+
+	console.log("1:"+rbf_getFieldValue('Plead1'));
+	if ( !(parseInt(rbf_getFieldValue('Plead1')) > 0) )	{ //Check if loaded for validation
+		var creator = String(window.location.href).split('&creator=')[1];
+		if (parseInt(creator) > 0) rbf_setFieldValue('Plead1', creator);
+		console.log("2:"+rbf_getFieldValue('Plead1'));
+	}
+
+	var jd = rbf_getPicklistCode('job_description');
+	if (jd == 'OTH'){
+		$('#rbi_F_please_specify_job_description > label').text('* If Other, please specify Job Description');
+		'please_specify_job_description'.c_showHide(true);
+		
+		$('#rbi_F_job_description').attr('style','border-bottom: none !important;');
+		$('#rbi_F_please_specify_job_description').attr('style','border-top: none !important;');
+	} else {
+		$('#rbi_F_please_specify_job_description > label').text('* If Other, please specify Job Description');
+		'please_specify_job_description'.c_showHide(false);
+	}
+
+	//$('#rbi_F_streetAddr1, #rbi_F_job_description, #rbi_F_please_specify_job_description').attr('colspan','2');
+$("#rbi_S_"+rbf_getSectionIdByTitle("Attendee Information")+"  input, select, textarea").css({"font-weight":"bold", "letter-spacing":"0.2px", "color":"#000"});
+});
+function jobDesc() {
+	'please_specify_job_description'.c_showHide(false);
+	var jd = rbf_getPicklistCode('job_description');
+	if (jd == 'OTH') {
+		rbf_setFieldValue('please_specify_job_description','');
+		'please_specify_job_description'.c_showHide(true);
+	}
+}
+</script>
