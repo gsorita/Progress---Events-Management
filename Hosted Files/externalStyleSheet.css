@@ -1,0 +1,24 @@
+#twitter:hover {
+	-webkit-filter: drop-shadow(0px 0px 10px rgba(20,199,237,0.8));
+	filter: url(https://www.rbl1.ph/storage/servlet/Image?c=598231&fileName=tmp_6125682587512852716.svg&contentType=image%2Fsvg%2Bxml);
+	margin-right:15px;
+}
+#fb:hover {
+	-webkit-filter: drop-shadow(0px 0px 10px rgba(0,76,140,0.8));
+	filter: url(shadow.svg#drop-shadow);
+	margin-right:15px;
+}
+#linkedin:hover {
+	-webkit-filter: drop-shadow(0px 0px 10px rgba(6,125,237,0.8));
+	filter: url(shadow.svg#drop-shadow);
+	margin-right:15px;
+}
+#gplus:hover {
+	-webkit-filter: drop-shadow(0px 0px 10px rgba(0,0,0,0.8));
+	filter: url(shadow.svg#drop-shadow);
+	margin-right:15px;
+}
+#youtube:hover {
+	-webkit-filter: drop-shadow(0px 0px 10px rgba(220,0,0,0.8));
+	filter: url(shadow.svg#drop-shadow);	
+}
