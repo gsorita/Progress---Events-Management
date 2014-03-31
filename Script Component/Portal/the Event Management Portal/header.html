@@ -7,7 +7,8 @@
 <style>
 @font-face {
 	font-family: 'Geogrotesque';
-	src: url('{!#SETTINGS.font_eot_#url}') format('eot'), url('{!#SETTINGS.font_otf_#url}') format('opentype'), url('{!#SETTINGS.font_woff_#url}') format('woff');
+	src: url('{!#SETTINGS.font_eot_#url}');
+	src: url('{!#SETTINGS.font_eot_#url}') format('embedded-opentype'), url('{!#SETTINGS.font_otf_#url}') format('opentype'), url('{!#SETTINGS.font_woff_#url}') format('woff');
 }
 @font-face {
 	font-family: 'geo-bold';
@@ -23,18 +24,24 @@ body, html {
 }
 .rbs_infoMessage, #rb_infoMessage {
 	/*position: fixed;*/
-width: 100%;
+	width: 100%;
 	text-align: center;
-	color:#F00 !important;
+	background: #fff871;
+	color: #5f555e;
+	border-radius: 3px;
+text-transform: uppercase;
 }
-.rbs_infoMessage {
-	background: url('{!#HOSTED_FILE.1049072}') #e1e1e1;
+ {
+	/*background: url('{!#HOSTED_FILE.1049072}') #e1e1e1;*/
+	background: #fff871;
+	color: #585a57 !important;
 }
 #rb_infoMessageText {
-	padding: 5px 0 !important;
+	padding: 10px 0 !important;
+	text-transform: uppercase;
 }
 .wide.lightbottom.bold {
-	background:url('{!#HOSTED_FILE.1049072}');
+	/*background:url('{!#HOSTED_FILE.1049072}');*/
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
 	-moz-border-radius-topleft:10px;
@@ -42,14 +49,22 @@ width: 100%;
 	-webkit-border-top-left-radius:10px;
 	-webkit-border-top-right-radius:10px;
 	overflow: hidden;
-	border-right: 1px solid #555;
+	/*border-right: 1px solid #555;*/
+	border: none;
 }
+
+.blackHeaderBG{
+	background:url('{!#HOSTED_FILE.1049071}');
+}
+
 .wide.lightbottom.bold .gray {
 	font-size:120%;
 	padding:1.5%;
 	color:#FFF !important;
 	font-weight:bold;
-	background: url('{!#HOSTED_FILE.1049071}');
+	/*background: url('{!#HOSTED_FILE.1049071}');*/
+	text-align: center;
+	text-transform: uppercase;
 }
 .wide.lightbottom.bold .gray .gray {
 	background:none;
@@ -78,13 +93,18 @@ td.rbs_leftDataColWide, td.rbs_errorDataColWide {
 	width: 100% !important;
 	border: 1px solid #e1e1e1;
 }
-td.rbs_leftDataCol3, td.rbs_leftDataCol, td.rbs_leftDataColWide, tr.rbs_whiteListItem td, tr.viewed.even { /*background: url('{!#HOSTED_FILE.1049072}'); background: rgba(246, 246, 161,.9) !important;*/
+td.rbs_leftDataCol3, td.rbs_leftDataCol, td.rbs_leftDataColWide, tr.rbs_whiteListItem td, tr.viewed.even { /*background: url('{!#HOSTED_FILE.1049072}'); background: rgba(246, 246, 161,.9) !important;
 	background: url('{!#HOSTED_FILE.1049072}') #FF6900 !important;
-	border: 1px solid #e1e1e1;
+	border: 1px solid #e1e1e1;*/
+	border: none;
+	color:#fff;
+	background: none !important;
 }
 td.rbs_errorDataCol3, td.rbs_errorDataCol, td.rbs_errorDataColWide, tr.rbs_whiteListItem td.listItemValue.rbs_errorDataCol {
-	background: url('{!#HOSTED_FILE.1049072}') #FF6900;
-	border: 1px solid #e1e1e1;
+	/*background: url('{!#HOSTED_FILE.1049072}') #FF6900;
+	border: 1px solid #e1e1e1;*/
+	border: none;
+	color:#fff;
 }
 tr.listItem.even {
 	/*background:none !important;*/
@@ -123,15 +143,19 @@ td.rbs_leftDataColWide label, td.rbs_errorDataCol label, td.rbs_errorDataColWide
 	font-size:100%;
 	padding: 2px 0;
 }
-textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input, input[type="button"] {
 	background-color: #ffffff;
 	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
--webkit-transition: border linear .2s, box-shadow linear .2s;
--moz-transition: border linear .2s, box-shadow linear .2s;
--o-transition: border linear .2s, box-shadow linear .2s;
-transition: border linear .2s, box-shadow linear .2s;
+	-webkit-transition: border linear .2s, box-shadow linear .2s;
+	-moz-transition: border linear .2s, box-shadow linear .2s;
+	-o-transition: border linear .2s, box-shadow linear .2s;
+	transition: border linear .2s, box-shadow linear .2s;
+	font-family: Geogrotesque !important; 
+}
+input[type="submit"]{
+	font-family: Geogrotesque !important; 	
 }
 select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
 	display: inline-block;
@@ -143,6 +167,9 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 	-moz-border-radius: 4px;
 	border-radius: 4px;
 	vertical-align: middle;
+}
+input[type="text"]{
+	font-weight:bold !important;	
 }
 select {
 	height:26px;
@@ -203,15 +230,41 @@ background: rgb(117, 117, 104) !important;
 	color: rgb(255, 255, 255) !important;
 }
 /* input[type=button], input[type=submit] { display: none;	} */
+
+.btnNext{
+	background: #211222 !important;
+	border: none;
+	color: #fff !important;
+	text-shadow: none;
+	box-shadow: none;	
+}
+
+.mainSectionHeader{
+	color: #fff;
+	font-size: 340%;
+	text-transform: uppercase;
+	text-align: center;
+	font-weight: bold;
+	padding-bottom: 10px;
+}
+
+font {
+	padding: 3px 20px 3px 5px;
+	background: #fff871;
+	color: #5f555e;
+	border-radius: 3px;
+	text-transform: uppercase;
+}
 </style>
 
 <script>
 
 $(document).ready(function(e) {
+        $('#loader').show();
 	$('td[colspan="2"]').each(function(index, element) {
 		if ( $(this).html() == '' ) $(this).remove();
 	});
-	if ( String( $('#rb_infoMessageText').html() ).indexOf('Sign Up') != -1 ) $('.rbs_infoMessage').hide();
+	if ( String( $('#rb_infoMessageText').html() ).indexOf('Sign Up') != -1 ) $('').hide();
     if ( !$('#rb_infoMessageText').is(':hidden') ) $('body').css('padding-top', $('#rb_infoMessageText').height() / 2);
 	
 	window.setInterval(oddEven,200);
@@ -229,24 +282,37 @@ function oddEven() {
 	$('.disabled').css('opacity','1');
 }
 
-function toRegistrationButtons(isFromNew) {
+function toRegistrationButtons(isFromNew, eventId, plead) {
 	if ($('[name="Submission Form End"]').length) {
 		$('input:submit').val('Next');
 		$('input:submit').removeAttr("disabled");
-		$('[name="Submission Form End"]').eq(0).find('td').eq(0).prepend('<button class="btn btn-small" value="" onclick="redirectTo_register('+ isFromNew +');" style="margin-left: 4px !important;">Cancel</button>');
-		$('[name="Submission Form End"]').eq(0).find('td').eq(0).prepend('<button type="button" class="btn btn-small" value="" onclick="redirectTo_back('+ isFromNew +')">Previous</button>');
+		parentId = (plead) ? 0 : parseInt(plead);
+		console.log('Parent ID:' + parentId + ':');
+		if (parseInt(parentId) > 0) {
+			cancel = '<input type="button" class="btn btn-small" value="Cancel" onclick="redirectTo_addPeople('+ isFromNew +','+ parentId +');" style="margin-left: 4px !important;background: #A32400;border: none;color: #fff;text-shadow: none;box-shadow: none;"/>';
+			previous = '<input type="button" type="button" id="prev_btn" class="btn btn-small" value="Previous" onclick="history.back();" style="background: #211222;border: none;color: #fff;text-shadow: none;box-shadow: none;"/>';		
+		} else {
+			cancel = '<input type="button" class="btn btn-small" value="Cancel" onclick="redirectTo_register('+ isFromNew +','+ eventId +');" style="margin-left: 4px !important;background: #A32400;border: none;color: #fff;text-shadow: none;box-shadow: none;"/>';
+			previous = '<input type="button" type="button" id="prev_btn" class="btn btn-small" value="Previous" onclick="redirectTo_back('+ isFromNew +')" style="background: #211222;border: none;color: #fff;text-shadow: none;box-shadow: none;"/>';	
+		}
+		$('[name="Submission Form End"]').eq(0).find('td').eq(0).prepend(cancel);
+		$('[name="Submission Form End"]').eq(0).find('td').eq(0).prepend(previous);
 		$('[name="Submission Form End"]').find('input').show();
+		$("input[value='Next']").addClass('btnNext');
 	}
 }
 
-function redirectTo_register(url){
-	eventId = (isFromNew) ? rbf_getFieldValue('R1047503') : parseInt('{!R1047503#id}');
+function redirectTo_register(isFromNew, eventId){
 	window.top.location.href='{!#PORTAL.985289.1069576#url}&id=' + eventId;	
+}
+
+function redirectTo_addPeople(isFromNew, parentId) {
+	parentId = (isFromNew) ? $('#Plead1').val() : parseInt('{!Plead1#id}');
+	window.location = "{!#PORTAL.1049083.1416213#url}&id="+parentId;
 }
 
 function redirectTo_back(isFromNew) {
 	if (isFromNew) {
-		console.log('EventId:' + eventId);
 		eventId = rbf_getFieldValue('R1047503');
 		window.location="{!#PORTAL.1049083.1416632#url}&id="+eventId;
 	} else {
@@ -257,5 +323,6 @@ function redirectTo_back(isFromNew) {
 </head>
 <body>
 <script src='{!#HOSTED_FILE.942603}'></script>
+<div id='loader'></div>
 <div style="padding:10px 3%;">
 <!--h-->

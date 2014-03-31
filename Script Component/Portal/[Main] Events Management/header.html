@@ -35,12 +35,16 @@
 <style>
 	@font-face {
 		font-family: 'Geogrotesque';
-		src: url('{!#SETTINGS.font_eot_#url}') format('eot'), url('{!#SETTINGS.font_otf_#url}') format('opentype'), url('{!#SETTINGS.font_woff_#url}') format('woff');
+		src: url('{!#SETTINGS.font_eot_#url}');
+		src: url('{!#SETTINGS.font_eot_#url}') format('embedded-opentype'), url('{!#SETTINGS.font_otf_#url}') format('opentype'), url('{!#SETTINGS.font_woff_#url}') format('woff');
 	}
 	html, body{
 		/* font-family: 'Sintony', sans-serif !important; */
 		font-family: Geogrotesque !important;
         font-size: 100%;
+	}
+	.footer a {
+		margin-left: 0px;
 	}
 	#loader {
 		background:#FFF no-repeat center url('{!#HOSTED_FILE.1076912}');
@@ -241,6 +245,15 @@ function resizeFrame() {
 </script>
 </head>
 <body>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    </script>
 	<div id='loader'></div>
 	<div class="main">
 		<!-- menu goes here from script [links and submenus template] -->
