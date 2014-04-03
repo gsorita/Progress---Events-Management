@@ -1,6 +1,28 @@
+<span id='disable_odd_even'></span>
 <style>
+tr.objectListHeader th a, tr.objectListHeader th{color: #211222 !important;}
+tr.objectListHeader{text-transform:uppercase !important; background: none !important;  font-size: 120% !important;}
+#amount, #currency, .question{
+	color: #fff !important;
+}
+tr.groupRow td{ background: #211222 !important; }
+div[name="Workshops"]  tr.objectListHeader > th:nth-child(1){ display:none; }
+.wide.lightbottom.bold .gray{
+	text-align:left !important;
+	color: #211222 !important;
+	margin-left: -7px !important;
+	font-size: 140% !important;
+}
+.rounded { 
+	border-radius: 5px;
+	-moz-border-radius:5px; 
+	-webkit-border-radius:5px;
+	padding: 5px;
+	background: #FFF;
+	margin-top: 41px; 
+}
 #please_spec { display:none; }
-tr.objectListHeader, .roundedSectionBorder .bold, .rbs_errorDataColWide { display:none; }
+.roundedSectionBorder .bold, .rbs_errorDataColWide { display:none; }
 .inline-block .small {
 	font-size: 18px;
 	margin-bottom: 20px;
@@ -19,13 +41,14 @@ tr.objectListHeader, .roundedSectionBorder .bold, .rbs_errorDataColWide { displa
 	width:auto; margin-right:3%;
 	border: 0 !important;
 }
+.btn-group { visibility:hidden; }
 .c_listView { margin-top:-63px; }
 tr.listItem td {
 	padding:1% !important;
 	vertical-align: middle !important;
 }
 tr.listItem { border: 1px dotted #DDD; }
-.rbs_whiteBlankTable { margin-top: 41px; }
+/*.rbs_whiteBlankTable { margin-top: 41px; }*/
 
 .paymentBtn{
 background: #ffb76b; /* Old browsers */
@@ -39,6 +62,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb76b', end
 text-shadow:none;
 color: #000;
 
+}
+#rb_infoMessage{display:none;}
+tr.viewed{
+	background: none !important;
+	text-transform: none !important;
+}
+
+tr.viewed, tr.viewed td{
+	border: none !important;
 }
 </style>
 <script>
@@ -92,18 +124,24 @@ function clearLeft(sectionTitle) {
 }
 
 $(document).ready(function(){
-	$('[id*=ld_]').addClass('c_listView').css('padding-top','0');
-	clearLeft('Special Events Registration,Survey Answers,Workshops,Child Signups');
-	$('#rbi_S_'+ rbf_getSectionIdByTitle('Special Events Registration')).find('table').eq(0).find('table').eq(0).css('clear', 'left');
-	if ('{!job_description#code}' == 'OTH') {
-		var label = $('#rbi_F_job_description').find('label').clone();
-		$('#rbi_F_job_description').html( $('#please_spec').html() ).prepend(label);
-	}
-	var groupRowLen = $('tr.groupRow td').length;
-	for(var i = 0; i < groupRowLen; i++){
-		var groupDate = changeDateFormat(new Date($('tr.groupRow td').eq(i).text()));
-		$('tr.groupRow td').eq(i).text(groupDate);
-	}
+	rbf_runTrigger("lead1", parseInt("{!id}"), "#setAsForReview", false, function(){
+		$('.rbs_whiteBlankTable').each(function(index, element) {
+			$(this).parent().parent().parent().parent().parent().parent().parent().parent().parent().parent().hide().parent().parent().prev().hide();
+			//Hide Parent Section and previous section containing title if empty
+		});
+		$('[id*=ld_]').addClass('c_listView').css('padding-top','0');
+		clearLeft('Special Events Registration,Survey Answers,Workshops,Child Signups');
+		$('#rbi_S_'+ rbf_getSectionIdByTitle('Special Events Registration')).find('table').eq(0).find('table').eq(0).css('clear', 'left');
+		if ('{!job_description#code}' == 'OTH') {
+			var label = $('#rbi_F_job_description').find('label').clone();
+			$('#rbi_F_job_description').html( $('#please_spec').html() ).prepend(label);
+		}
+		var groupRowLen = $('tr.groupRow td').length;
+		for(var i = 0; i < groupRowLen; i++){
+			var groupDate = changeDateFormat(new Date($('tr.groupRow td').eq(i).text()));
+			$('tr.groupRow td').eq(i).text(groupDate);
+		}
+	});
 });
 </script>
 <span id='please_spec'>{!please_specify_job_description#html}</div>
